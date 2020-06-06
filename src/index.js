@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import home from './screens/home/home';
+import Home from './screens/home/Home';
 
 ReactDOM.render(
-  <home />,
+  <Home />,
   document.getElementById('root')
 );
 
