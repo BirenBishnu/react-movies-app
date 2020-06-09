@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import './Home.css';
+import Details from '../../screens/details/Details';
 import Header from '../../common/header/Header';
 import {withStyles} from '@material-ui/core/styles';
 import moviesData from '../../common/movieData.js';
@@ -18,6 +20,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Checkbox, ListItemText } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 
 
@@ -52,9 +55,7 @@ const styles = theme => ({
      },
  });
 
-//  movieClickHandler = (movieId) => {
-//     this.props.history.push('/movie/' + movieId);
-// }
+
 
 
 
@@ -83,6 +84,10 @@ genreSelectHandler=(e)=>{
 }
 artistSelectHandler=(e)=>{
     this.setState({artists: e.target.value});
+}
+
+movieClickHandler = (movieId) => {
+    ReactDOM.render(<Details movieId={movieId}/>, document.getElementById('root'));
 }
 
     render(){
@@ -155,9 +160,12 @@ artistSelectHandler=(e)=>{
                             </FormControl>
                             <FormControl className={classes.formControl}>
                                 <TextField id="releaseDateStart" label="Release Date Start" type="date" defaultValue="" InputLabelProps={{shrink: true}}/>
-                                
-
-
+                            </FormControl>
+                            <FormControl className={classes.formControl}>
+                                <TextField id="releaseDateEnd" label="Release Date End" type="date" defaultValue="" InputLabelProps={{shrink: true}}/>
+                            </FormControl><br/><br/>
+                            <FormControl className={classes.formControl}>
+                            <Button variant="contained" color="primary" >Apply</Button>
                             </FormControl>
 
                         </CardContent>
