@@ -6,14 +6,47 @@ import Typography from '@material-ui/core/Typography';
 import './Details.css';
 import Home from "../../screens/home/Home";
 import YouTube from 'react-youtube';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 
 class Details extends Component{
     constructor(){
         super();
         this.state = {
-            movie: {}
+            movie: {},
+
+            starIcons: [
+                {
+                   id: 1,
+                   stateId: "star1",
+                   color: "black"
+                },
+                {
+                   id: 2,
+                   stateId: "star2",
+                   color: "black"
+                },
+                {
+                   id: 3,
+                   stateId: "star3",
+                   color: "black"
+                },
+                {
+                   id: 4,
+                   stateId: "star4",
+                   color: "black"
+                },
+                {
+                   id: 5,
+                   stateId: "star5",
+                   color: "black"
+                }
+             ],
         }
+        
     }
 
     componentWillMount() {
@@ -31,6 +64,10 @@ class Details extends Component{
 
     _onReady(event) {
         event.target.pauseVideo();
+    }
+
+    artistClickHandler = (url) =>{
+        window.location=url;
     }
 
 
@@ -102,7 +139,36 @@ class Details extends Component{
 
                     </div>
                     <div className="rightDetails">
+                        <Typography>
+                            <span className="bold">
+                                Rate This Movie: 
+                            </span>
+                        </Typography>
+                        {this.state.starIcons.map(star =>(
+                            <StarBorderIcon className={star.color} key={"star" + star.id} onClick={()=> this.startClickHandler(star.id)}/>
+                        ))}
 
+
+
+                        <div className="bold marginBottom16 marginTop16">
+                            <Typography>
+                                <span className="bold">
+                                    Artists: 
+                                </span>
+                            </Typography>
+                        </div>
+                        <div className="paddingRight">
+                            <GridList cellHeight={160} cols={2}>
+                                {movie.artists !=null && movie.artists.map(artist => (
+                                    <GridListTile
+                                    className="gridTile" onClick={() => this.artistClickHandler(artist.wiki_url)}
+                                    key={artist.id}>
+                                        <img src={artist.profile_url} alt={artist.first_name +" "+artist.last_name}/>
+                                        <GridListTileBar title={artist.first_name+" "+artist.last_name}/>
+                                    </GridListTile>
+                                ))}
+                            </GridList>
+                        </div>
                     </div>
 
                 </div>
