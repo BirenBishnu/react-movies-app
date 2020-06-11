@@ -16,6 +16,7 @@ import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 
 
@@ -28,9 +29,14 @@ class BookShow extends Component{
             language:"",
             showDate:"",
             showTime:"",
-            tickets:0,
+            tickets:"",
             unitPrice: 500,
             availableTickets: 20,
+            locationRequired:"dispNone",
+            languageRequired:"dispNone",
+            showDateRequired:"dispNone",
+            showTimeRequired:"dispNone",
+            ticketsRequired:"dispNone",
         }
     }
 
@@ -55,6 +61,14 @@ class BookShow extends Component{
     }
     ticketsChangeHandler = (e) => {
         this.setState({tickets: e.target.value});
+    }
+
+    bookShowButtonHandler = () => {
+        this.state.location === "" ? this.setState({locationRequired: "dispBlock"}) : this.setState({locationRequired: "dispNone"} );
+        this.state.language === "" ? this.setState({languageRequired: "dispBlock"}) : this.setState({languageRequired: "dispNone"} );
+        this.state.showDate === "" ? this.setState({showDateRequired: "dispBlock"}) : this.setState({showDateRequired: "dispNone"} );
+        this.state.showTime === "" ? this.setState({showTimeRequired: "dispBlock"}) : this.setState({showTimeRequired: "dispNone"} );
+        this.state.tickets === "" ? this.setState({ticketsRequired: "dispBlock"}) : this.setState({ticketsRequired: "dispNone"} );
     }
 
 
@@ -83,6 +97,7 @@ class BookShow extends Component{
                                     </MenuItem>
                                 ))}
                             </Select>
+                            <FormHelperText className={this.state.locationRequired}><span className="red">required</span></FormHelperText>
                         </FormControl><br/><br/>
                         <FormControl required className="formControl">
                             <InputLabel htmlFor="language">Choose Language: </InputLabel>
@@ -95,6 +110,7 @@ class BookShow extends Component{
                                     </MenuItem>
                                 ))}
                             </Select>
+                            <FormHelperText className={this.state.languageRequired}><span className="red">required</span></FormHelperText>
                         </FormControl><br/><br/>
                         <FormControl required className="formControl">
                             <InputLabel htmlFor="showDate">Choose Date: </InputLabel>
@@ -107,6 +123,7 @@ class BookShow extends Component{
                                     </MenuItem>
                                 ))}
                             </Select>
+                            <FormHelperText className={this.state.showDateRequired}><span className="red">required</span></FormHelperText>
                         </FormControl><br/><br/>
                         <FormControl required className="formControl">
                             <InputLabel htmlFor="showTime">Choose Time: </InputLabel>
@@ -119,12 +136,14 @@ class BookShow extends Component{
                                     </MenuItem>
                                 ))}
                             </Select>
+                            <FormHelperText className={this.state.showTimeRequired}><span className="red">required</span></FormHelperText>
                         </FormControl><br/><br/>
                         <FormControl required className="formControl">
                             <InputLabel htmlFor="Tickets" >
                                 Tickets:({this.state.availableTickets} available)
                             </InputLabel>
                             <Input id="tickets" value={this.state.tickets !==0 ? this.state.tickets:""} onChange={this.ticketsChangeHandler}/>
+                            <FormHelperText className={this.state.ticketsRequired}><span className="red">required</span></FormHelperText>
                         </FormControl><br/><br/>
                         <Typography>
                             Unit Price: Rs. {this.state.unitPrice}
